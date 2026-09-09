@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-
     <title>我的订阅源</title>
-
     <link>https://3oekd.github.io/Wei-rss-feed/</link>
-
     <description>文件更新订阅源</description>
-
     <language>zh-cn</language>
 
     <item>
-      <title>测试文件</title>
-      <description>这是第一条测试内容。</description>
-      <pubDate>Thu, 10 Sep 2026 00:00:00 GMT</pubDate>
-      <guid>test-001</guid>
+      <title>14 海盗为什么会分金币.txt</title>
+      <description>第一份正式文件</description>
+      <link>https://github.com/3oekd/Wei-rss-feed/blob/main/文件/14%20海盗为什么会分金币.txt</link>
+      <pubDate>Thu, 10 Sep 2026 07:30:00 GMT</pubDate>
+      <guid>14-haidao-weishenm-hui-fen-jinbi</guid>
     </item>
 
   </channel>
