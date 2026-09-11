@@ -9,9 +9,17 @@
     <item>
       <title>14 海盗为什么会分金币.txt</title>
       <description>第一份正式文件</description>
-      <link>https://github.com/3oekd/Wei-rss-feed/blob/main/文件/14%20海盗为什么会分金币.txt</link>
+      <link>https://raw.githubusercontent.com/3oekd/Wei-rss-feed/main/files/14%20%E6%B5%B7%E7%9B%97%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%88%86%E9%87%91%E5%B8%81.txt</link>
       <pubDate>Thu, 10 Sep 2026 07:30:00 GMT</pubDate>
-      <guid>14-haidao-weishenm-hui-fen-jinbi</guid>
+      <guid>14-haidao-weishenme-hui-fen-jinbi</guid>
+    </item>
+
+    <item>
+      <title>az.zip</title>
+      <description>ZIP 文件</description>
+      <link>https://raw.githubusercontent.com/3oekd/Wei-rss-feed/main/files/az.zip</link>
+      <pubDate>Thu, 10 Sep 2026 07:30:00 GMT</pubDate>
+      <guid>az-zip</guid>
     </item>
 
   </channel>
