@@ -7,6 +7,14 @@
     <language>zh-cn</language>
 
 <item>
+  <title>自动更新测试.txt</title>
+  <description>文件更新</description>
+  <link>https://raw.githubusercontent.com/3oekd/Wei-rss-feed/main/files/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E6%B5%8B%E8%AF%95.txt</link>
+  <pubDate>Fri, 11 Sep 2026 08:57:14 +0800</pubDate>
+  <guid isPermaLink="false">自动更新测试.txt</guid>
+</item>
+
+<item>
   <title>az.zip</title>
   <description>文件更新</description>
   <link>https://raw.githubusercontent.com/3oekd/Wei-rss-feed/main/files/az.zip</link>
