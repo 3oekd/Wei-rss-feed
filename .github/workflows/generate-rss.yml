@@ -1,0 +1,113 @@
+name: 自动生成 RSS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'files/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-rss:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 获取仓库
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: 生成 RSS
+        run: |
+          python3 <<'PY'
+          import os
+          import subprocess
+          from datetime import datetime
+          from email.utils import format_datetime
+          from urllib.parse import quote
+          from xml.sax.saxutils import escape
+
+          REPO = "3oekd/Wei-rss-feed"
+          BASE_URL = "https://raw.githubusercontent.com/3oekd/Wei-rss-feed/main/files/"
+
+          items = []
+
+          for root, dirs, files in os.walk("files"):
+              for filename in files:
+                  full_path = os.path.join(root, filename)
+
+                  if filename == ".gitkeep":
+                      continue
+
+                  rel_path = os.path.relpath(full_path, "files").replace(os.sep, "/")
+
+                  try:
+                      timestamp = subprocess.check_output(
+                          ["git", "log", "-1", "--format=%cI", "--", full_path],
+                          text=True
+                      ).strip()
+
+                      dt = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+                  except Exception:
+                      dt = datetime.now().astimezone()
+
+                  pub_date = format_datetime(dt)
+
+                  encoded_path = quote(rel_path, safe="/")
+                  url = BASE_URL + encoded_path
+
+                  title = escape(filename)
+                  description = escape("文件更新")
+
+                  items.append((dt, f"""
+          <item>
+            <title>{title}</title>
+            <description>{description}</description>
+            <link>{url}</link>
+            <pubDate>{pub_date}</pubDate>
+            <guid isPermaLink="false">{escape(rel_path)}</guid>
+          </item>
+          """))
+
+          items.sort(key=lambda x: x[0], reverse=True)
+
+          rss = """<?xml version="1.0" encoding="UTF-8"?>
+          <rss version="2.0">
+            <channel>
+              <title>我的订阅源</title>
+              <link>https://3oekd.github.io/Wei-rss-feed/</link>
+              <description>文件更新订阅源</description>
+              <language>zh-cn</language>
+          """
+
+          for _, item in items:
+              rss += item
+
+          rss += """
+            </channel>
+          </rss>
+          """
+
+          with open("rss.xml", "w", encoding="utf-8") as f:
+              f.write(rss.strip() + "\n")
+
+          print(f"RSS 已生成，共 {len(items)} 个文件")
+          PY
+
+      - name: 提交 RSS 更新
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add rss.xml
+
+          if git diff --cached --quiet; then
+            echo "RSS 没有变化"
+          else
+            git commit -m "自动更新 RSS"
+            git push
+          fi
